@@ -1,6 +1,8 @@
 <?php
 
-require './Config/Config.php';
+namespace Database;
+
+use Config\Config;
 
 class Database{
 
@@ -57,10 +59,9 @@ class Database{
         $this->dbName = $config["dbName"];
         $this->dbUser = $config["dbUser"];
         $this->dbPassword = $config["dbPassword"];
-        $this->pdo = new PDO('mysql:host='. $this->dbHost . ':' . $this->dbPort . 
+        $this->pdo = new \PDO('mysql:host='. $this->dbHost . ':' . $this->dbPort . 
         ";dbname=" . $this->dbName , 
         $this->dbUser, 
         $this->dbPassword);
     }
-
 }

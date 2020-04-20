@@ -1,6 +1,8 @@
 <?php
 
-require 'Database.php';
+namespace Database;
+
+use Database\Database;
 
 class createDatabase extends Database{
 
@@ -24,7 +26,6 @@ class createDatabase extends Database{
             $statement .= $this->makeForeign($foreigns);
         }
         $statement .= ")";
-        var_dump($statement);
         $this->pdo->exec($statement);
     }
 
