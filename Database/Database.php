@@ -64,4 +64,10 @@ class Database{
         $this->dbUser, 
         $this->dbPassword);
     }
+
+    // query
+
+    // exec( DELETE )
+
+    // save
 }

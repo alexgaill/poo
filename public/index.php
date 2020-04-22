@@ -3,6 +3,7 @@ define ('ROOT', dirname(__DIR__));
 require '../Autoloader.php';
 Autoloader::register();
 
+use Model\Model;
 use Database\createDatabase;
 
 
@@ -26,5 +27,32 @@ $db->createTable('optionsProperty',
                     'property_id' => 'property(id)']
 );
 
+if ((isset($_GET["page"]) && $_GET["page"] == 'home') || !isset($_GET["page"])) {
+    $model = new Model();
+    $biens = $model->getBiens();
+    include ROOT . '/views/indexView.php';
 
-include '../views/indexView.php';
+} elseif (isset($_GET["page"]) && $_GET["page"] == 'new') {  
+    include ROOT . '/views/newView.php';
+} elseif (isset($_GET["page"]) && $_GET["page"] == 'save') {  
+    $model = new Model();
+    $biens = $model->saveBien($_POST);
+    header("Location: index.php?page=home");
+} elseif (isset($_GET["page"]) && $_GET["page"] == 'single') {  
+    $model = new Model();
+    $bien = $model->getBien($_GET["id"]);
+    include ROOT . '/views/singleView.php';
+} elseif (isset($_GET["page"]) && $_GET["page"] == 'modify') { 
+    $model = new Model();
+    $bien = $model->getBien($_GET["id"]);
+    include ROOT . '/views/modifyView.php';
+} elseif (isset($_GET["page"]) && $_GET["page"] == 'saveModification') { 
+    $model = new Model();
+    $bien = $model->modifyBien($_POST);
+    var_dump($bien);
+    // header("Location: index.php?page=single&id=". $_GET["id"]);
+}
+
+
+
+
