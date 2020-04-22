@@ -12,13 +12,32 @@ class Query extends Model
      *
      * @return array| null
      */
-    public function findAll()
+    public function findAll($order = ["id" => 'ASC'])
     {
-        return $this->query('SELECT * FROM ' . $this->model , false);
+        return $this->query('SELECT * FROM ' . $this->model . $this->createOrder($order), false);
     }
 
-    public function find($id)
+    public function find($id, $order = ["id" => 'ASC'])
     {
-        return $this->query('SELECT * FROM ' . $this->model . ' WHERE id=' . $id);
+        return $this->query('SELECT * FROM ' . $this->model . ' WHERE id=' . $id
+                            . $this->createOrder($order)
+                            , true);
     }
+
+    public function findOneBy($id, $criteria = [], $order = ["id" => 'ASC'])
+    {
+        return $this->query('SELECT * FROM '. $this->model .
+                                $this->createWhere($criteria)
+                                . $this->createOrder($order)
+                                , true);
+    }
+
+    public function findBy($criteria = [], $order = ["id" => 'ASC'])
+    {
+        return $this->query('SELECT * FROM '. $this->model .
+                                $this->createWhere($criteria)
+                                . $this->createOrder($order)
+                                , false);
+    }
+
 }

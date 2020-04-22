@@ -29,7 +29,6 @@ class createDatabase extends Database{
         $this->pdo->exec($statement);
     }
 
-    
     public function makeForeign($foreigns)
     {
         $statement = ", ";

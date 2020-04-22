@@ -8,29 +8,9 @@ use Model\PropertyModel;
 use Database\createDatabase;
 
 
-$db = new createDatabase();
-// $db->create();
-$db->createTable('options', ['id' => 'INT PRIMARY KEY NOT NULL AUTO_INCREMENT', 'name' => 'VARCHAR(50) NOT NULL']);
-$db->createTable('property', ['id' => 'INT PRIMARY KEY NOT NULL AUTO_INCREMENT',
-                                'title' => 'VARCHAR(100) NOT NULL',
-                                'address' => 'VARCHAR(100) NOT NULL',
-                                'postalCode' => 'VARCHAR(10) NOT NULL',
-                                'surface' => 'INT NOT NULL',
-                                'type' => 'INT NOT NULL',
-                                'floor' => 'INT'
-]);
-$db->createTable('optionsProperty', 
-                    ["id" => "INT PRIMARY KEY NOT NULL AUTO_INCREMENT",
-                                    "option_id" => "INT NOT NULL",
-                                    "property_id" => "INT NOT NULL"
-                    ],
-                    ['option_id' => 'options(id)',
-                    'property_id' => 'property(id)']
-);
-
 if ((isset($_GET["page"]) && $_GET["page"] == 'home') || !isset($_GET["page"])) {
     $model = new PropertyModel();
-    $biens = $model->findAll();
+    $biens = $model->findBy(["postalCode" => "12345"]);
     include ROOT . '/views/indexView.php';
 
 } elseif (isset($_GET["page"]) && $_GET["page"] == 'new') {  
@@ -48,17 +28,17 @@ if ((isset($_GET["page"]) && $_GET["page"] == 'home') || !isset($_GET["page"])) 
 
 } elseif (isset($_GET["page"]) && $_GET["page"] == 'modify') { 
     $model = new PropertyModel();
-    $bien = $model->getBien($_GET["id"]);
+    $bien = $model->find($_GET["id"]);
     include ROOT . '/views/modifyView.php';
 
 } elseif (isset($_GET["page"]) && $_GET["page"] == 'saveModification') { 
-    $model = new PropertyModel();
-    $bien = $model->modifyBien($_POST);
+    $model = new DbInterface();
+    $bien = $model->update('property', $_POST, $_GET["id"]);
     header("Location: index.php?page=single&id=". $_GET["id"]);
 
 } elseif (isset($_GET["page"]) && $_GET["page"] == 'delete') { 
-    $model = new PropertyModel();
-    $bien = $model->deleteBien($_GET["id"]);
+    $model = new DbInterface();
+    $bien = $model->delete('property', $_GET["id"]);
     header("Location: index.php?page=home");
 
 }

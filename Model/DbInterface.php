@@ -26,4 +26,24 @@ class DbInterface extends Model
         }
         $this->prepare($statement, $data);
     }
+
+    public function update($class, $data, $id){
+
+        $statement = "UPDATE " . $class . " SET ";
+
+        foreach ($data as $key => $value) {
+            if (is_string($value)) {
+                $statement .= $key . ' = "' . $value . '", ';
+            } elseif (empty($value)){
+                $statement .= $key . " = NULL" ;
+            }
+        }
+        $statement = substr($statement, 0, -2);
+        $statement .= ' WHERE id=' . $id;
+
+        $this->exec($statement);
+    }
+    public function delete($class, $id){
+        $this->exec('DELETE FROM ' . $class . ' WHERE id=' . $id);
+    }
 }

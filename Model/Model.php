@@ -36,34 +36,26 @@ class Model extends Database{
 
     }
 
-    public function saveBien($data)
+    public function exec ($statement)
     {
-        $verifyData = [];
-        foreach ($data as $key => $value) {
-            $key = ":" . $key;
-            $value = htmlspecialchars($value);
-            $verifyData[$key] = $value;
-        }
-        $prepare = $this->pdo->prepare("INSERT INTO property (title, address, postalCode, surface, type, floor) VALUES (:title, :address, :postalCode, :surface, :type, :floor)");
-        $prepare->execute($verifyData);
+        return $this->pdo->exec($statement);
     }
 
-    public function modifyBien($data){
-
-        $statement = "UPDATE property SET ";
-
-        foreach ($data as $key => $value) {
-            $statement .= $key . "= '" . $value . "', ";
+    public function createWhere($criteria)
+    {
+        $where = ' WHERE ';
+        foreach ($criteria as $key => $value) {
+            $where .= $key . ' = "' . $value . '" AND ';
         }
-        $statement = substr($statement, 0, -13);
-        $statement .= " WHERE id=". $_GET["id"];
-
-        // return $statement;
-        $this->pdo->exec($statement);
-        // $prepare->execute($statement);
+        return substr($where, 0, -4);
     }
 
-    public function deleteBien($id){
-        $this->pdo->exec("DELETE FROM property WHERE id=" . $id);
+    public function createOrder ($order)
+    {
+        $orderList = ' ORDER BY ';
+        foreach ($order as $key => $value) {
+            $orderList .= $key . ' ' . $value . ', ';
+        }
+        return substr($orderList, 0, -2);
     }
 }
