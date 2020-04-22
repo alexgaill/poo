@@ -29,23 +29,7 @@ class createDatabase extends Database{
         $this->pdo->exec($statement);
     }
 
-    /**
-     * Création de la table property
-     */
-    public function createTableProperty(){
-
-        $this->pdo->exec('CREATE TABLE IF NOT EXISTS property(
-            
-        )');
-    }
-
-    public function createTableOptionsProperty(){
-        $this->pdo->exec('CREATE TABLE optionsproperty(
-            
-            
-            )');
-    }
-
+    
     public function makeForeign($foreigns)
     {
         $statement = ", ";

@@ -6,10 +6,34 @@ use Database\Database;
 
 class Model extends Database{
 
-    public function getBiens()
+    protected $model;
+
+    public function __construct()
     {
-        $result = $this->pdo->query("SELECT * FROM property", \PDO::FETCH_OBJ);
-        return $result->fetchAll();
+        if(is_null($this->model)){
+            $class = explode('\\', get_class($this));
+            $class = end($class);
+            $this->model = strtolower(str_replace('Model', "", $class));
+        }
+
+        parent::__construct();
+    }
+
+    public function query($statement, $one = false){
+        $query = $this->pdo->query($statement, \PDO::FETCH_OBJ);
+
+        if($one){
+            return $query->fetch();
+        } else {
+            return $query->fetchAll();
+        }
+    }
+
+    public function prepare ($statement, $data)
+    {
+        $prepare = $this->pdo->prepare($statement);
+        $prepare->execute($data);
+
     }
 
     public function saveBien($data)
@@ -22,12 +46,6 @@ class Model extends Database{
         }
         $prepare = $this->pdo->prepare("INSERT INTO property (title, address, postalCode, surface, type, floor) VALUES (:title, :address, :postalCode, :surface, :type, :floor)");
         $prepare->execute($verifyData);
-    }
-
-    public function getBien ($id)
-    {
-        $result = $this->pdo->query("SELECT * FROM property WHERE id=" . $id, \PDO::FETCH_OBJ);
-        return $result->fetch();
     }
 
     public function modifyBien($data){
@@ -43,5 +61,9 @@ class Model extends Database{
         // return $statement;
         $this->pdo->exec($statement);
         // $prepare->execute($statement);
+    }
+
+    public function deleteBien($id){
+        $this->pdo->exec("DELETE FROM property WHERE id=" . $id);
     }
 }
