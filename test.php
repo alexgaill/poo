@@ -1,6 +1,10 @@
 <?php
+define ('ROOT', __DIR__);
+require ROOT . '/Autoloader.php';
+Autoloader::register();
+use Database\CreateDatabase;
 
-$db = new createDatabase();
+$db = new CreateDatabase();
 // $db->create();
 $db->createTable('options', ['id' => 'INT PRIMARY KEY NOT NULL AUTO_INCREMENT', 'name' => 'VARCHAR(50) NOT NULL']);
 $db->createTable('property', ['id' => 'INT PRIMARY KEY NOT NULL AUTO_INCREMENT',

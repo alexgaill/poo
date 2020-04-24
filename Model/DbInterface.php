@@ -32,15 +32,15 @@ class DbInterface extends Model
         $statement = "UPDATE " . $class . " SET ";
 
         foreach ($data as $key => $value) {
-            if (is_string($value)) {
+            if (empty($value) ){
+                $statement .= $key . " = null, " ;
+            } elseif (is_string($value)) {
                 $statement .= $key . ' = "' . $value . '", ';
-            } elseif (empty($value)){
-                $statement .= $key . " = NULL" ;
             }
         }
         $statement = substr($statement, 0, -2);
         $statement .= ' WHERE id=' . $id;
-
+        
         $this->exec($statement);
     }
     public function delete($class, $id){

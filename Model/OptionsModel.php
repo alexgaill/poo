@@ -4,7 +4,7 @@ namespace Model;
 
 use Model\Query;
 
-class PropertyModel extends Query
+class OptionsModel extends Query
 {
-    
+
 }

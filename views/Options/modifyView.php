@@ -19,40 +19,20 @@
                 <a class="nav-link" href="index.php">Accueil </a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Nouveau <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="index.php?page=newProperty">Nouveau <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="index.php?page=newOption">Nouvelle option <span class="sr-only">(current)</span></a>
             </li>
             </ul>
         </div>
     </nav>
     
     <div class="container mt-5">
-    <form action="index.php?page=save" method="POST">
+    <form action="index.php?page=saveModifyOptions&id=<?= $option->id ?>" method="POST">
         <div class="form-group">
-            <label for="title">Titre</label>
-            <input type="text" class="form-control" id="title" name="title">
-        </div>
-        <div class="form-group">
-            <label for="address">Adresse</label>
-            <input type="text" class="form-control" id="address" name="address">
-        </div>
-        <div class="form-group">
-            <label for="postalCode">Code postal</label>
-            <input type="text" class="form-control" id="postalCode" name="postalCode">
-        </div>
-        <div class="form-group">
-            <label for="surface">Surface</label>
-            <input type="number" class="form-control" id="surface" name="surface">
-        </div>
-        <div class="form-group">
-            <label for="type">Type</label>
-            <select name="type" id="">
-                <option value="1">Appartement</option>
-                <option value="2">Maison</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="floor">Etage</label>
-            <input type="number" class="form-control" id="floor" name="floor">
+            <label for="name">Titre</label>
+            <input type="text" class="form-control" id="name" name="name" value="<?= $option->name ?>">
         </div>
         <button type="submit" class="btn btn-primary">Enregistrer</button>
     </form>

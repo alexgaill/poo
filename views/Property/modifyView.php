@@ -19,14 +19,14 @@
                 <a class="nav-link" href="index.php">Accueil </a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Nouveau <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="index.php?page=newProperty">Nouveau <span class="sr-only">(current)</span></a>
             </li>
             </ul>
         </div>
     </nav>
     
     <div class="container mt-5">
-    <form action="index.php?page=saveModification&id=<?= $bien->id ?>" method="POST">
+    <form action="index.php?page=saveModifyProperty&id=<?= $bien->id ?>" method="POST">
         <div class="form-group">
             <label for="title">Titre</label>
             <input type="text" class="form-control" id="title" name="title" value="<?= $bien->title ?>">

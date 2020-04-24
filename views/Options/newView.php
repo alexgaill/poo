@@ -15,32 +15,27 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="index.php">Accueil <span class="sr-only">(current)</span></a>
-            </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.php?page=new">Nouveau</a>
+                <a class="nav-link" href="index.php">Accueil </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="index.php?page=newProperty">Nouveau <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="index.php?page=newOption">Nouvelle option <span class="sr-only">(current)</span></a>
             </li>
             </ul>
         </div>
-    </nav> <!-- liens de notre site-->
+    </nav>
     
-    <div class="recherche mt-5"></div>
-    <div class="affichage mt-5 justify-content-around">
-
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="https://fakeimg.pl/300x200/" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title"><?= $bien->title ?></h5>
-                <div class="card-text">
-                    <p>Code Postal: <?= $bien->postalCode ?></p>
-                    <p>Surface: <?= $bien->surface ?>m2</p>
-                    <p>Type: <?= $bien->type ?></p>
-                </div>
-                <a href="index.php?page=modify&id=<?= $bien->id ?>" class="btn btn-primary">Modifier</a>
-                <a href="index.php?page=delete&id=<?= $bien->id ?>" class="btn btn-danger">Supprimer</a>
-            </div>
+    <div class="container mt-5">
+    <form action="index.php?page=saveOption" method="POST">
+        <div class="form-group">
+            <label for="name">Nom</label>
+            <input type="text" class="form-control" id="name" name="name">
         </div>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </form>
     </div>
 </body>
 </html>
