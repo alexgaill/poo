@@ -1,8 +1,8 @@
 <?php
 
-namespace Model;
+namespace Core\Model;
 
-use Database\Database;
+use Core\Database\Database;
 
 class Model extends Database{
 

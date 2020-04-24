@@ -1,13 +1,13 @@
 <?php
 
+use App\Controller\PropertyController;
 use Model\DbInterface;
 use Model\PropertyModel;
 use Model\OptionsModel;
 
 if ((isset($_GET["page"]) && $_GET["page"] == 'home') || !isset($_GET["page"])) {
-    $PropertyModel = new PropertyModel();
-    $biens = $PropertyModel->findAll();
-    require ROOT . '/views/Property/indexView.php';
+    $controller = new PropertyController();
+    $controller->home();
 
 } elseif (isset($_GET["page"]) && $_GET["page"] == 'newProperty') { 
     $OptionsModel = new OptionsModel();
@@ -16,7 +16,7 @@ if ((isset($_GET["page"]) && $_GET["page"] == 'home') || !isset($_GET["page"])) 
 
 } elseif (isset($_GET["page"]) && $_GET["page"] == 'saveProperty') {  
     $model = new DbInterface();
-    $property = array_splice($_POST, 0, 5);
+    $property = array_splice($_POST, 0, 6);
     $options = $_POST["options"];
     $model->save($property, 'property');
     $PropertyModel = new PropertyModel();

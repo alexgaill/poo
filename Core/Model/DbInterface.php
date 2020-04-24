@@ -1,8 +1,8 @@
 <?php
 
-namespace Model;
+namespace Core\Model;
 
-use Model\Model;
+use Core\Model\Model;
 
 class DbInterface extends Model
 {

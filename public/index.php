@@ -1,7 +1,10 @@
 <?php
 define ('ROOT', dirname(__DIR__));
 
-require ROOT . '/Autoloader.php';
+require ROOT . '/Core/Autoloader/Autoloader.php';
+use Core\Autoloader\Autoloader;
+
+
 Autoloader::register();
 
-require ROOT . "/Routing/Routing.php";
+require ROOT . "/App/Routing/Routing.php";

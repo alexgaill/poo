@@ -1,8 +1,8 @@
 <?php
 
-namespace Model;
+namespace App\Model;
 
-use Model\Query;
+use Core\Model\Query;
 
 class OptionsModel extends Query
 {

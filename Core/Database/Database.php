@@ -1,8 +1,8 @@
 <?php
 
-namespace Database;
+namespace Core\Database;
 
-use Config\Config;
+use Core\Config\Config;
 
 class Database{
 
