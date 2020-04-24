@@ -17,18 +17,16 @@ class Query extends Model
         return $this->query('SELECT * FROM ' . $this->model . $this->createOrder($order), false);
     }
 
-    public function find($id, $order = ["id" => 'ASC'])
+    public function find($id)
     {
         return $this->query('SELECT * FROM ' . $this->model . ' WHERE id=' . $id
-                            . $this->createOrder($order)
                             , true);
     }
 
-    public function findOneBy($id, $criteria = [], $order = ["id" => 'ASC'])
+    public function findOneBy($criteria = [])
     {
         return $this->query('SELECT * FROM '. $this->model .
                                 $this->createWhere($criteria)
-                                . $this->createOrder($order)
                                 , true);
     }
 

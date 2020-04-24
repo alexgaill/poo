@@ -1,5 +1,6 @@
 <div class="container mt-5">
     <form action="index.php?page=signup" method="POST">
+        <p class=text-danger><?= $message ?></p>
         <div class="form-group">
             <label for="username">Username</label>
             <input type="text" class="form-control" id="username" name="username">

@@ -3,6 +3,7 @@
 namespace App\Controller;
 use App\Model\UserModel;
 use Core\Controller\Controller;
+use Core\Manager\PasswordEncoderManager;
 use Core\Model\DbInterface;
 
 class UserController extends Controller{
@@ -11,21 +12,32 @@ class UserController extends Controller{
     {
         $this->model = new UserModel();
         $this->interface = new DbInterface();
+        $this->encoder = new PasswordEncoderManager();
     }
 
     public function signup(){
-        if(!empty($_POST)){
-            $this->interface->save($_POST, 'user');
-            return $this->redirectToRoute('home');
+        $message = "";
+        try {
+            if(!empty($_POST) && !empty($_POST["username"])){
+                $_POST["password"] = $this->encoder->passwordEncode($_POST["password"]);
+                $this->interface->save($_POST, 'user');
+                return $this->redirectToRoute('home');
+            }else {
+                $message = "Il manque le username";
+            }
+        } catch (\Throwable $th) {
+            $message = "Une erreur s'est produite ...";
         }
-        return $this->render("user/signup");
+            
+        return $this->render("user/signup", ["message" => $message]);
     }
 
     public function login(){
         if(!empty($_POST)){
             $user = $this->model->findOneBy(['username' => $_POST["username"]]);
             if (!is_null($user)){
-                if($user->password === $_POST["password"]){
+                $connected = $this->encoder->passwordVerify($_POST["password"], $user->password);
+                if($connected){
                     $_SESSION["user"] = $user;
                 }
                 return $this->redirectToRoute("home");
