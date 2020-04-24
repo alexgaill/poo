@@ -43,7 +43,15 @@ class DbInterface extends Model
         
         $this->exec($statement);
     }
+
+    /**
+     * Delete data
+     *
+     * @param string $class
+     * @param int $id
+     */
     public function delete($class, $id){
+        return 'DELETE FROM ' . $class . ' WHERE id=' . $id;
         $this->exec('DELETE FROM ' . $class . ' WHERE id=' . $id);
     }
 }

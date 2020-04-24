@@ -22,6 +22,24 @@
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?page=newProperty">Nouveau</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?page=options">Options <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?page=newOptions">Nouvelle Option</a>
+                </li>
+                <?php if (!isset($_SESSION["user"])): ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?page=signup">Inscription</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?page=login">Connexion</a>
+                </li>
+                <?php else: ?>
+                    <li class="nav-item">
+                    <a class="nav-link" href="index.php?page=logout">Déconnexion</a>
+                </li>
+                <?php endif ?>
                 </ul>
             </div>
         </nav>

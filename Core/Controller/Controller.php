@@ -11,4 +11,13 @@ class Controller{
         $content = ob_get_clean();
         require ROOT . '/App/View/default.php';
     }
+
+    public function redirectToRoute($route, $id = null)
+    {
+        if (is_null($id)) {
+            return header("Location: index.php?page=" . $route);
+        } else {
+            return header("Location: index.php?page=" . $route . "&id=" . $id);
+        }
+    }
 }
