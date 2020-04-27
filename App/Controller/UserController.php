@@ -15,6 +15,10 @@ class UserController extends Controller{
         $this->encoder = new PasswordEncoderManager();
     }
 
+    /**
+     * Create User
+     *
+     */
     public function signup(){
         $message = "";
         try {
@@ -32,6 +36,9 @@ class UserController extends Controller{
         return $this->render("user/signup", ["message" => $message]);
     }
 
+    /**
+     * Log user
+     */
     public function login(){
         if(!empty($_POST)){
             $user = $this->model->findOneBy(['username' => $_POST["username"]]);
@@ -47,6 +54,9 @@ class UserController extends Controller{
 
     }
 
+    /**
+     * Logout user
+     */
     public function logout(){
         session_destroy();
         return $this->redirectToRoute("home");

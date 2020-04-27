@@ -2,11 +2,13 @@
 
 namespace Core\Model;
 
-use Core\Database\Database;
+use Core\App;
 
-class Model extends Database{
+class Model{
 
     protected $model;
+
+    protected $db;
 
     public function __construct()
     {
@@ -16,29 +18,8 @@ class Model extends Database{
             $this->model = strtolower(str_replace('Model', "", $class));
         }
 
-        parent::__construct();
-    }
-
-    public function query($statement, $one = false){
-        $query = $this->pdo->query($statement, \PDO::FETCH_OBJ);
-
-        if($one){
-            return $query->fetch();
-        } else {
-            return $query->fetchAll();
-        }
-    }
-
-    public function prepare ($statement, $data)
-    {
-        $prepare = $this->pdo->prepare($statement);
-        $prepare->execute($data);
-
-    }
-
-    public function exec ($statement)
-    {
-        return $this->pdo->exec($statement);
+        $app = new App();
+        $this->db = $app->getDb();
     }
 
     public function createWhere($criteria)

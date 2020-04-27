@@ -29,8 +29,8 @@
         </div>
         <div class="form-group">
             <?php foreach ($options as $option) : ?>
-            <input type="checkbox" name="options['<?= $option->name ?>']" id="<?= $option->name ?>" value="<?= $option->id ?>">
-            <label for="<?= $option->name ?>"><?= $option->name ?></label>
+            <input type="checkbox" name="options['<?= $option->getName() ?>']" id="<?= $option->getName() ?>" value="<?= $option->getId() ?>">
+            <label for="<?= $option->getName() ?>"><?= $option->getName() ?></label>
             <?php endforeach ?>
         </div>
         <button type="submit" class="btn btn-primary">Enregistrer</button>

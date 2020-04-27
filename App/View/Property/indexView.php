@@ -6,13 +6,13 @@
         <div class="card" style="width: 18rem;">
             <img class="card-img-top" src="https://fakeimg.pl/300x200/" alt="Card image cap">
             <div class="card-body">
-                <h5 class="card-title"><?= $bien->title ?></h5>
+                <h5 class="card-title"><?= $bien->getTitle() ?></h5>
                 <div class="card-text">
-                    <p>Code Postal: <?= $bien->postalCode ?></p>
-                    <p>Surface: <?= $bien->surface ?>m2</p>
-                    <p>Type: <?= $bien->type ?></p>
+                    <p>Code Postal: <?= $bien->getPostalCode() ?></p>
+                    <p>Surface: <?= $bien->getSurface() ?>m2</p>
+                    <p>Type: <?= $bien->getType() ?></p>
                 </div>
-                <a href="index.php?page=singleProperty&id=<?= $bien->id ?>" class="btn btn-primary">Go somewhere</a>
+                <a href="index.php?page=singleProperty&id=<?= $bien->getId() ?>" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
     <?php endforeach ?>

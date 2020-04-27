@@ -51,17 +51,49 @@ class Database{
     /**
      * Constructeur / établit la connexion avec la Db
      */
-    public function __construct(){
-        $config = new Config();
-        $config = $config->getConfig();
-        $this->dbHost = $config["dbHost"];
-        $this->dbPort = $config["dbPort"];
-        $this->dbName = $config["dbName"];
-        $this->dbUser = $config["dbUser"];
-        $this->dbPassword = $config["dbPassword"];
-        $this->pdo = new \PDO('mysql:host='. $this->dbHost . ':' . $this->dbPort . 
-        ";dbname=" . $this->dbName , 
-        $this->dbUser, 
-        $this->dbPassword);
+    public function __construct($dbName, $dbHost, $dbPort, $dbUser, $dbPassword){
+
+        $this->dbName = $dbName;
+        $this->dbHost = $dbHost;
+        $this->dbPort = $dbPort;
+        $this->dbUser = $dbUser;
+        $this->dbPassword = $dbPassword;
+
+        if(is_null($this->pdo)){
+            $this->pdo = new \PDO('mysql:host='. $this->dbHost . ':' . $this->dbPort . 
+                                ";dbname=" . $this->dbName , 
+                                $this->dbUser, 
+                                $this->dbPassword);
+        }
+        return $this->pdo;
     }
+
+    public function query($statement, $class = null, $one = false){
+        $query = $this->pdo->query($statement);
+
+        if(!is_null($class)){
+            $query->setFetchMode(\PDO::FETCH_CLASS, $class);
+        } else {
+            $query->setFetchMode(\PDO::FETCH_OBJ);
+        }
+
+        if($one){
+            return $query->fetch();
+        } else {
+            return $query->fetchAll();
+        }
+    }
+
+    public function prepare ($statement, $data)
+    {
+        $prepare = $this->pdo->prepare($statement);
+        $prepare->execute($data);
+
+    }
+
+    public function exec ($statement)
+    {
+        return $this->pdo->exec($statement);
+    }
+
 }

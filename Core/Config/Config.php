@@ -5,18 +5,26 @@ namespace Core\Config;
 class Config
 {
 
-    public function __construct(){
-        $this->config = [
-            'dbHost' => '127.0.0.1',
-            'dbPort' => '8889',
-            'dbName' => 'immobilier',
-            'dbUser' =>  'root',
-            'dbPassword' => 'root'
-        ];
+    private static $_instance = null;
+
+    private $settings = array();
+
+    private function __construct($file)
+    {
+        $this->settings = require $file;
+    }
+   
+    public static function getInstance($file)
+    {
+        if(is_null(self::$_instance)){
+            self::$_instance = new Config($file);
+        }
+        return self::$_instance;
     }
 
-    public function getConfig(){
-        return $this->config;
+    public function get($key)
+    {
+        return $this->settings[$key];
     }
     
 }
