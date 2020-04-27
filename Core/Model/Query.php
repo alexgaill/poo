@@ -23,14 +23,14 @@ class Query extends Model
 
     public function find($id)
     {
-        return $this->query('SELECT * FROM ' . $this->model . ' WHERE id=' . $id,
+        return $this->db->query('SELECT * FROM ' . $this->model . ' WHERE id=' . $id,
                             '\App\Entity\\' . ucfirst($this->model),
                             true);
     }
 
     public function findOneBy($criteria = [])
     {
-        return $this->query('SELECT * FROM '. $this->model .
+        return $this->db->query('SELECT * FROM '. $this->model .
                                 $this->createWhere($criteria),
                             '\App\Entity\\' . ucfirst($this->model),
                             true);
@@ -38,7 +38,7 @@ class Query extends Model
 
     public function findBy($criteria = [], $order = ["id" => 'ASC'])
     {
-        return $this->query('SELECT * FROM '. $this->model .
+        return $this->db->query('SELECT * FROM '. $this->model .
                                 $this->createWhere($criteria)
                                 . $this->createOrder($order),
                             '\App\Entity\\' . ucfirst($this->model),
